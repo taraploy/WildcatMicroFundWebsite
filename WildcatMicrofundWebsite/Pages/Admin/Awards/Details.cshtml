@@ -1,0 +1,63 @@
+﻿@page
+@model WMF.Pages.Admin.Awards.DetailsModel
+@{
+}
+<style>
+    .label-detail {
+        margin-right: 8px;
+        font-weight: bold;
+    }
+</style>
+
+<div class="container backgroundWhite">
+    <div class="row">
+        <div class="col-12">
+            <h1 class="text-center">Award Details for @Model.application.BusinessName</h1>
+            <div class="mx-5">
+                <div class="row">
+                    <label class="label-detail">Award Date:</label>
+                    <p class="d-inline">@Convert.ToString(string.Format("{0:M/d/yyyy}", @Model.awardHistory.AwardDate))</p>
+                </div>
+                <div class="row">
+                    <label class="label-detail">Award Amount:</label>
+                    <p class="d-inline">$@Model.awardHistory.AwardAmount</p>
+                </div>
+                @*<div class="row">
+                    <label class="label-detail">Award Agreement</label>
+                    <a href="" download>
+                        Download
+                    </a>
+                    ---->
+                    <p class="text-danger d-block">
+                        don't click yet or it'll download this very page
+                        <br />
+                        Need Download???
+                    </p>
+                </div>*@
+                <div class="row">
+                    <label class="label-detail">Requisition Number</label>
+                    <p class="d-inline">@Model.awardHistory.ReqNumber</p>
+                </div>
+                <div class="row">
+                    <label class="label-detail">Mail Date:</label>
+                    <p>@Convert.ToString(string.Format("{0:M/d/yyyy}", @Model.awardHistory.MailDate))</p>
+                </div>
+                <div class="row">
+                    <label class="label-detail">Provider</label>
+                    <p class="d-inline">@Model.awardHistory.Provider</p>
+                </div>
+                <div class="row">
+                    <label class="label-detail">Award Type</label>
+                    <p class="d-inline">@Model.awardHistory.AwardType</p>
+                </div>
+                <div class="row">
+                    <label class="label-detail">Comment</label>
+                    <p class="d-inline">@Model.awardHistory.Comments</p>
+                </div>
+                <div class="col-12 text-center">
+                    <a asp-page="./Index" class="btn-primary btn">Back to List</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

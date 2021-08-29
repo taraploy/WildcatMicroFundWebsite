@@ -1,0 +1,70 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp5.0</TargetFramework>
+    <UserSecretsId>f5951188-02fe-411f-a782-f8a5de8d31b1</UserSecretsId>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Pages\Admin\Home\**" />
+    <Compile Remove="Pages\Business\**" />
+    <Content Remove="Pages\Admin\Home\**" />
+    <Content Remove="Pages\Business\**" />
+    <EmbeddedResource Remove="Pages\Admin\Home\**" />
+    <EmbeddedResource Remove="Pages\Business\**" />
+    <None Remove="Pages\Admin\Home\**" />
+    <None Remove="Pages\Business\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="jQuery-datetimepicker" Version="2.4.5" />
+    <PackageReference Include="jQuery-Timepicker-Addon" Version="1.6.3" />
+    <PackageReference Include="jQuery.UI.Combined" Version="1.12.1" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="3.1.13" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="3.1.13" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation" Version="3.1.13" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="3.1.13" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="3.1.13" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="3.1.13">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.jQuery.Unobtrusive.Ajax" Version="3.2.6" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="3.1.5" />
+    <PackageReference Include="Moment.js" Version="2.29.1" />
+    <PackageReference Include="SendGrid" Version="9.21.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\WildcatMicrofundWebsite.DataAccess\WMF.DataAccess.csproj" />
+    <ProjectReference Include="..\WildcatMicrofundWebsite.Models\WMF.Models.csproj" />
+    <ProjectReference Include="..\WildcatMicrofundWebsite.Utility\WMF.Utility.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="wwwroot\lib\font-awesome\js\all.js" />
+    <None Include="wwwroot\lib\font-awesome\js\all.min.js" />
+    <None Include="wwwroot\lib\font-awesome\js\brands.js" />
+    <None Include="wwwroot\lib\font-awesome\js\brands.min.js" />
+    <None Include="wwwroot\lib\font-awesome\js\conflict-detection.js" />
+    <None Include="wwwroot\lib\font-awesome\js\conflict-detection.min.js" />
+    <None Include="wwwroot\lib\font-awesome\js\fontawesome.js" />
+    <None Include="wwwroot\lib\font-awesome\js\fontawesome.min.js" />
+    <None Include="wwwroot\lib\font-awesome\js\regular.js" />
+    <None Include="wwwroot\lib\font-awesome\js\regular.min.js" />
+    <None Include="wwwroot\lib\font-awesome\js\solid.js" />
+    <None Include="wwwroot\lib\font-awesome\js\solid.min.js" />
+    <None Include="wwwroot\lib\font-awesome\js\v4-shims.js" />
+    <None Include="wwwroot\lib\font-awesome\js\v4-shims.min.js" />
+    <None Include="wwwroot\lib\font-awesome\sprites\brands.svg" />
+    <None Include="wwwroot\lib\font-awesome\sprites\regular.svg" />
+    <None Include="wwwroot\lib\font-awesome\sprites\solid.svg" />
+    <None Include="wwwroot\lib\font-awesome\webfonts\fa-brands-400.svg" />
+    <None Include="wwwroot\lib\font-awesome\webfonts\fa-brands-400.woff2" />
+    <None Include="wwwroot\lib\font-awesome\webfonts\fa-regular-400.svg" />
+    <None Include="wwwroot\lib\font-awesome\webfonts\fa-regular-400.woff2" />
+    <None Include="wwwroot\lib\font-awesome\webfonts\fa-solid-900.svg" />
+    <None Include="wwwroot\lib\font-awesome\webfonts\fa-solid-900.woff2" />
+  </ItemGroup>
+
+</Project>

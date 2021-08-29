@@ -1,0 +1,93 @@
+﻿@page
+@model WMF.Pages.Admin.JudgeApplication.UpsertModel
+@*This is the actual page that receives the scores for judging of applications
+    When the admin clicks on the judge application button on the index page,
+    it comes to this page and allows them to input the scores then save the page
+    before submitting the score.*@
+
+<head>
+    <!-- All jquery and javascript required -->
+    <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+    <script src="https://malsup.github.io/jquery.cycle2.js"></script>
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+</head>
+
+<body>
+    <div class="container">
+        <form method="post">
+            <div class="form-group row">
+                <div class="col-9">
+                    <h2 class="text-primary">Judging Application</h2>
+                </div>
+            </div>
+
+            @{ int questionNumber = 1; }
+            @foreach (var response in @Model.QuestionResponseList)
+            {
+                <div class="row">
+                    <input asp-for="@response.ApplicationId" hidden />
+                    <div class="col-12">
+                        <p><strong>@questionNumber. What do you Give this application on @Model.JudgesScoreList[questionNumber - 1].ScoringQuestions.ScoreQuestions:</strong></p>
+                    </div>
+                    <div class="col-4 text-sm-center text-lg-left">
+                        <label>Score(Out of @Model.JudgesScoreList[questionNumber - 1].ScoringQuestions.MaxScore):</label>
+                        <input type="number" id="score" min="0" , max="@Model.JudgesScoreList[questionNumber - 1].ScoringQuestions.MaxScore" onchange="calcTotal()" class="form-control" asp-for="@Model.JudgesScoreList[questionNumber - 1].JudgeScore" />
+                        <span class="text-danger" asp-validation-for="@Model.JudgesScoreList[questionNumber - 1].JudgeScore"></span>
+                        <br /><br />
+                        <label>Optional Comments:</label>
+                        <textarea cols="30" rows="5" asp-for="@Model.JudgesScoreList[questionNumber-1].JudgeComment"></textarea>
+                        <span class="text-danger" asp-validation-for="@Model.JudgesScoreList[questionNumber-1].JudgeComment"></span>
+                    </div>
+                    <div class="col-6 text-sm-center text-lg-center">
+                        <p>
+                            @response.QuestionResponse
+                        </p>
+                    </div>
+                </div>
+                <br />
+                //when the model is pulled in we need to save these fields to send back to the model so we dont lose the values.
+                <input asp-for="@Model.JudgesScoreList[questionNumber-1].Id" hidden />
+                <input asp-for="@Model.JudgesScoreList[questionNumber-1].ScoringQuestionsId" hidden />
+                <input asp-for="@Model.JudgesScoreList[questionNumber-1].ScoringApplicationId" hidden />
+                <br />
+                questionNumber++;
+            }
+            <div>
+                <h2 id="totalDiv">TOTAL: <output id="totalScore">@Model.initialPts</output> / @Model.ptsPossible </h2>
+                <h4 id="totalMsg"></h4>
+            </div>
+            <button type="submit" asp-page-handler="Bulk" class="btn btn-primary form-control align-content-center" style="width:250px;">Save Scores</button>
+        </form>
+    </div>
+</body>
+
+@section Scripts{
+    <script>
+        function calcTotal() {
+           // document.getElementById('totalScore').innerText += "yo";
+        var tot = 0;
+        for (var i = 0; i < '@Model.ptCnt'; i++) {
+            var str = 'JudgesScoreList[' + i + '].JudgeScore';
+            var arr = document.getElementsByName(str);
+            arr.forEach(function (number) {
+                tot = tot + parseInt(number.value);
+            });
+        }
+        if ((tot / '@Model.ptsPossible') > '@Model.minPercentage') {
+            document.getElementById('totalDiv').style.color = '#34eb7d'
+            document.getElementById('totalMsg').style.color = '#34eb7d'
+            document.getElementById('totalMsg').innerText = "Score is above the minimum score"
+        }
+        else {
+            document.getElementById('totalDiv').style.color = '#eb4f34'
+            document.getElementById('totalMsg').style.color = '#eb4f34'
+            document.getElementById('totalMsg').innerText = "Score is below the minimum score"
+        }
+        document.getElementById('totalScore').innerText = tot;
+    }
+    </script>
+}

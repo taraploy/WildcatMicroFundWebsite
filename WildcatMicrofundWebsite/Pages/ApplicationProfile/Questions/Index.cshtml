@@ -1,0 +1,91 @@
+﻿@page
+@model WMF.Pages.ApplicationProfile.Questions.IndexModel
+@using Utility;
+
+@*This page is used to display the questions that have been answered after saving and before submitting the answers.*@
+
+<div class="container">
+    <form method="post">
+        <div class="form-group row">
+            <div class="col-12">
+                <div class="row text-center">
+                    <h2 class="text-primary">Application Status - New Please Review Your Responses</h2>
+                </div>
+            </div>
+        </div>
+        @{ int questionNumber = 1; }
+        @foreach (var response in @Model.QuestionResponseList)
+        {
+            <div class="row">
+                <input asp-for="@response.ApplicationId" hidden />
+                <div class="col-6 text-sm-center text-lg-left">
+                    <p><strong>@questionNumber. @response.Questions.Question</strong></p>
+                </div>
+                <div class="col-6 text-sm-center text-lg-left">
+                    <p>
+                        @* if the repsponse is not null we display the resposne. if it is null we generate "please answer" *@
+                        @(response.QuestionResponse != null ? response.QuestionResponse : "Please Answer")
+
+                    </p>
+                </div>
+            </div>
+            questionNumber++;
+        }
+
+        @{bool responseBool = true;}
+
+        @foreach (var response in Model.QuestionResponseList)
+        {
+            @if (response.QuestionResponse == null || response.QuestionResponse == "")
+            {//because we had a invalid input i kick us out of the foreach and force the user to anwser the missed questions
+                responseBool = false;
+                break;
+            }
+        }
+        @if (User.IsInRole(WMF.Utility.SD.AdministratorRole) && Model.Application.StatusId == 2)//generate options for admin to judge the application
+        {
+            <div class="form-group row">
+                <div class="col-9">
+                    <div class="row">
+                        <div class="col-5">
+                            <a asp-page="/Admin/JudgeApplication/Index" asp-route-id="@Model.QuestionResponseList[0].ApplicationId" class="btn-primary form-control btn">Judge Application</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+        else//this is to display if its the applicant logged in not the admin
+        {
+            @if (responseBool == true && User.IsInRole(SD.ApplicantRole))//all questions had been asnwered
+            {
+                <h3 style="text-align:center;"> Wildcat Micro Fund Submission Agreement</h3>
+                <p>
+                    By submitting this application, I agree to provide feedback and information as requested in a prompt manner in the future regarding the status of my business,
+                    what I have learned and other metrics. The Wildcat Micro Fund will request information every 3 months for the first year after grant funds are awarded and then
+                    semi - annually for 3 years.
+                    It is also understood that some of the success of your business comes from others donating time and money in your future success.You commit to ‘pay it forward’
+                    to the fund and community in the manner you feel best for yourself.
+                </p>
+
+                <h4>
+                    We expect you to grow and locate part of your operations in Weber, Davis, Box Elder, or Morgan County for a period of three years. If you have to leave, pay-it-forward.
+                    We will keep your personal information confidential, unless your permission is provided. We will share the story of you, and your company, on our web site, social media,
+                    and promotional efforts.
+                </h4>
+                <h4>By Checking the box below, you agree to the guidelines outlined herein and certify that all statements contained within are true. *</h4>
+
+                <label for="Checkbox">Check Here To Agree</label>
+                <input type="checkbox" id="checkme" onchange="document.getElementById('agree').disabled = !this.checked;" />
+
+                <input type="submit" name="agree" class="btn btn-primary form-control" id="agree" asp-route-id="@Model.QuestionResponseList[0].ApplicationId" value=" Submit " disabled />
+            }
+            else if (responseBool == false && User.IsInRole(SD.ApplicantRole))//they havent answered all questions
+            {
+                <a asp-page="Upsert" class="btn btn-primary" asp-route-id="@Model.QuestionResponseList[0].ApplicationId">
+                    <i class="fas fa-plus"></i>&nbsp;Edit Answers
+                </a>
+            }
+
+        }
+    </form>
+</div>

@@ -1,0 +1,43 @@
+﻿@page
+@model WMF.Pages.Admin.RackAndStack.IndexModel
+@using Utility
+@{
+}
+
+<div class="container backgroundWhite"> 
+    <div class="row">
+        <div class="col-12 text-center">
+            <h2>Rack and Stack</h2>
+        </div>
+        <div class="col-12">
+
+            @foreach (var ev in Model.events)
+            {
+                <h4> @ev.PitchDateTime.ToShortDateString()</h4>
+                var scores1 = Model.scoresApplication.Where(u => u.pitchEvent == ev.Id);
+                var sortedList = scores1.OrderByDescending(x => x.totalScore);
+                var rank = 1;
+                @foreach (var sl in sortedList)
+                {
+                    <div class="row">
+                        <div class="col-6">
+                            @rank : @sl.applicationName
+                        </div>
+                        <div class="col-6">
+                            Average Total score: @sl.totalScore.ToString("0.000")
+                        </div>
+                    </div>
+                    rank++;
+                }
+                <div class="m-3">
+                    <a href="/Admin/RackAndStack/Details?id=@ev.Id"
+                       class="btn btn-success text-white" style="cursor:pointer; width:80px;">
+                        <i class="far fa-edit"></i>
+                        Details
+                    </a>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+

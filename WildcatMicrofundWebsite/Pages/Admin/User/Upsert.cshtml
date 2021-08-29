@@ -1,0 +1,33 @@
+﻿@page
+@model WMF.Pages.Admin.User.UpsertModel
+@{
+}
+
+@*This page is used to allow the admin the ability to update roles and create new roles*@
+
+<div class="border backgroundWhite container">
+    <div class="row">
+        <div class="col-6">
+            <h2 class="text-primary">User List</h2>
+        </div>
+        <div class="col-6 text-right">
+            <a asp-page="/" asp-area="ApplicationUser" class="btn btn-primary"><i class="fas fa-plus"></i> &nbsp; Create New</a>
+        </div>
+    </div>
+    <br /><br />
+    @*we are using the "DT_Load" to display a formatted table of values from our AJAX call in our javascript page user.js*@
+    <table id="DT_load" class="table text-dark table-bordered bg-dark" style="width:100%">
+        <thead class="text-light">
+            <tr>
+                <th>Full Name</th>
+                <th>E-Mail</th>
+                <th>Phone Number</th>
+                <th></th>
+            </tr>
+        </thead>
+    </table>
+</div>
+
+@section Scripts{
+    <script src="~/js/userRolesEdit.js"></script>
+}

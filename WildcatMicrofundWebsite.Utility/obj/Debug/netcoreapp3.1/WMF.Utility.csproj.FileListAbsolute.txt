@@ -1,0 +1,12 @@
+O:\WeberStateUniversity\Catalyst Lab\Our Repo\WMF\WildcatMicrofundWebsite\WildcatMicrofundWebsite.Utility\bin\Debug\netcoreapp3.1\WMF.Utility.deps.json
+O:\WeberStateUniversity\Catalyst Lab\Our Repo\WMF\WildcatMicrofundWebsite\WildcatMicrofundWebsite.Utility\bin\Debug\netcoreapp3.1\WMF.Utility.dll
+O:\WeberStateUniversity\Catalyst Lab\Our Repo\WMF\WildcatMicrofundWebsite\WildcatMicrofundWebsite.Utility\bin\Debug\netcoreapp3.1\WMF.Utility.pdb
+O:\WeberStateUniversity\Catalyst Lab\Our Repo\WMF\WildcatMicrofundWebsite\WildcatMicrofundWebsite.Utility\bin\Debug\netcoreapp3.1\WMF.Models.dll
+O:\WeberStateUniversity\Catalyst Lab\Our Repo\WMF\WildcatMicrofundWebsite\WildcatMicrofundWebsite.Utility\bin\Debug\netcoreapp3.1\WMF.Models.pdb
+O:\WeberStateUniversity\Catalyst Lab\Our Repo\WMF\WildcatMicrofundWebsite\WildcatMicrofundWebsite.Utility\obj\Debug\netcoreapp3.1\WMF.Utility.csproj.AssemblyReference.cache
+O:\WeberStateUniversity\Catalyst Lab\Our Repo\WMF\WildcatMicrofundWebsite\WildcatMicrofundWebsite.Utility\obj\Debug\netcoreapp3.1\WMF.Utility.AssemblyInfoInputs.cache
+O:\WeberStateUniversity\Catalyst Lab\Our Repo\WMF\WildcatMicrofundWebsite\WildcatMicrofundWebsite.Utility\obj\Debug\netcoreapp3.1\WMF.Utility.AssemblyInfo.cs
+O:\WeberStateUniversity\Catalyst Lab\Our Repo\WMF\WildcatMicrofundWebsite\WildcatMicrofundWebsite.Utility\obj\Debug\netcoreapp3.1\WMF.Utility.csproj.CoreCompileInputs.cache
+O:\WeberStateUniversity\Catalyst Lab\Our Repo\WMF\WildcatMicrofundWebsite\WildcatMicrofundWebsite.Utility\obj\Debug\netcoreapp3.1\WMF.Utility.csproj.CopyComplete
+O:\WeberStateUniversity\Catalyst Lab\Our Repo\WMF\WildcatMicrofundWebsite\WildcatMicrofundWebsite.Utility\obj\Debug\netcoreapp3.1\WMF.Utility.dll
+O:\WeberStateUniversity\Catalyst Lab\Our Repo\WMF\WildcatMicrofundWebsite\WildcatMicrofundWebsite.Utility\obj\Debug\netcoreapp3.1\WMF.Utility.pdb

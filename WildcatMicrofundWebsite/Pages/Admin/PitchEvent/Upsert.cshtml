@@ -1,0 +1,153 @@
+﻿@page
+@model WMF.Pages.Admin.PitchEvent.UpsertModel
+@*This page allows the admin to edit everything about a pitch event including judges and applications in event.*@
+
+<form method="post" asp-action="Upsert">
+    <div class="container">
+        <div class="row px-2 mx-2 backgroundWhite border">
+            <div asp-validation-summary="ModelOnly" class="text-danger"> </div>
+            <div class="col-12 px-3" style="border-bottom: 1px solid #325d88">
+                <h2 class="text-primary">@(Model.PitchEventsObj.Id != 0 ? "Update" : "Create") Pitch Event</h2>
+            </div>
+            <div class="col-8 pt-3">
+                <div class="form-group row">
+                    <div class="col-3">
+                        <label asp-for="PitchEventsObj.PitchDateTime"></label>
+                    </div>
+                    <div class="col-9">
+                        <input id="datepicker" asp-for="PitchEventsObj.PitchDateTime" type="text" class="form-control" value="@(Model.PitchEventsObj.Id != 0 ? @Model.PitchEventsObj.PitchDateTime.ToShortDateString() : @DateTime.Now.ToShortDateString())" />
+                        <span class="text-danger" asp-validation-for="PitchEventsObj.PitchDateTime"></span>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-3">
+                        <label asp-for="PitchEventsObj.CashFunds"></label>
+                    </div>
+                    <div class="col-9">
+                        <input class="form-control" asp-for="PitchEventsObj.CashFunds" />
+                        <span class="table-danger" asp-validation-for="PitchEventsObj.CashFunds"></span>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-3">
+                        <label asp-for="PitchEventsObj.ServiceFunds"></label>
+                    </div>
+                    <div class="col-9">
+                        <input class="form-control" asp-for="PitchEventsObj.ServiceFunds" />
+                        <span class="table-danger" asp-validation-for="PitchEventsObj.ServiceFunds"></span>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <h4 class="col-12" style="border-bottom: 1px solid #325d88">Event Status</h4>
+                    <div class="col-5">
+                        <select asp-for="PitchEventsObj.StatusId" style="width:90%">
+                            @foreach (var stat in Model.statuses)
+                            {
+                                <option value=@stat.Id>@stat.StatusDescription</option>
+                            }
+                        </select>
+                    </div>
+                </div>
+                <h3 style="border-bottom: 1px solid #325d88">Assign Judges</h3>
+                @foreach (var item in @Model.JudgeList)
+                {
+                    @if (Model.JudgesAssignedIds.Contains(item.Id))
+                    {
+                        <div>
+                            <input name="AreChecked" type="checkbox" value="@item.Id" checked>
+                            <label for="html">@item.FirstName @item.LastName</label><br>
+                        </div>
+                    }
+                    else
+                    {
+                        <div>
+                            <input name="AreChecked" type="checkbox" value="@item.Id">
+                            <label for="html">@item.FirstName @item.LastName</label><br>
+                        </div>
+                    }
+                }
+                <h3 style="border-bottom: 1px solid #325d88">Businesses In Event </h3>
+                @if (Model.ListOfApplications == null || Model.ListOfApplications.Count() == 0)
+                {
+                    <div style="color:red;">No applications Being Judged or ready to be judged</div>
+                }
+                else
+                {
+                    @foreach (var item in @Model.ListOfApplications)
+                    {
+                        @if (Model.ApplicationsInEvent.Contains(item))
+                        {
+                            <div>
+                                <input name="IsChecked" type="checkbox" value="@item.Id" checked>
+                                <label for="html">@item.BusinessName</label><br>
+                            </div>
+                        }
+                        else
+                        {
+                            <div>
+                                <input name="IsChecked" type="checkbox" value="@item.Id">
+                                <label for="html">@item.BusinessName</label><br>
+                            </div>
+                        }
+                    }
+                }
+                <div class="form-group row mt-3">
+                    <div class="col-9 offset-3">
+                        <div class="row">
+                            @if ((Model.ListOfApplications == null || Model.ListOfApplications.Count() == 0) && Model.PitchEventsObj.Id == 0)
+                            {
+                                <div class="col-6">
+                                    <button type="submit" onclick="return check()" class="btn-primary btn form-control" disabled>@(Model.PitchEventsObj.Id != 0 ? "Update" : "Create")</button>
+                                </div>
+                            }
+                            else
+                            {
+                                <div class="col-6">
+                                    <button type="submit" onclick="return check()" class="btn-primary btn form-control">@(Model.PitchEventsObj.Id != 0 ? "Update" : "Create")</button>
+                                </div>
+                            }
+                            <div class="col-6">
+                                <a asp-page="./Index" class="btn-primary form-control btn">Back to List</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <input asp-for="@Model.PitchEventsObj.Id" hidden />
+        </div>
+    </div>
+</form>
+
+@section Scripts{
+    <script>
+        $("#datepicker").datepicker({
+            dateFormat: "mm/dd/yy",
+            changeMonth: true,
+            changeYear: true,
+            yearRange: "-1:+5"
+        });
+        function validateInput() {
+            var fd = document.getElementById("datepicker").value;
+            if (fd.toString() == '') {
+                swal("Error", "Please select Pitch Date", "error");
+                return false;
+            }
+
+            return true;
+        }
+    </script>
+    <script>
+        function check() {
+            var cnt = 0;
+            var inputElem = document.getElementsByName('AreChecked');
+            for (var i = 0; i < inputElem.length; i++) {
+                if (inputElem[i].checked == true) { cnt++; }
+            }
+            if (cnt < 3) {
+                alert("At least 3 judges must be selected!");
+                return false;
+            }
+            return true;
+        }
+    </script>
+}

@@ -1,0 +1,16 @@
+﻿@page
+@model WMF.Pages.Admin.UserRoleEdit.IndexModel
+
+@using Utility
+@{
+}
+
+@if (User.IsInRole(SD.AdministratorRole))
+{
+    <div class="py-2">
+        <input type="checkbox" name="rdUserRole" value="@SD.AdministratorRole" /> @SD.AdministratorRole
+        <input type="checkbox" name="rdUserRole" value="@SD.ManagementRole" /> @SD.ManagementRole
+        <input type="checkbox" name="rdUserRole" value="@SD.MentorRole" /> @SD.MentorRole
+        <input type="checkbox" name="rdUserRole" value="@SD.JudgeRole" /> @SD.JudgeRole
+    </div>
+    }

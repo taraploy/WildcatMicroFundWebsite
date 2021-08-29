@@ -1,0 +1,84 @@
+﻿@page
+@model WMF.Pages.Admin.PitchEvent.DetailsModel
+@{
+}
+<form>
+    <div class="container">
+        <div class="row px-2 mx-2 backgroundWhite border">
+            <div asp-validation-summary="ModelOnly" class="text-danger"> </div>
+            <div class="col-12 px-3" style="border-bottom: 1px solid #325d88">
+                <h2 class="text-primary"> Pitch Event</h2>
+            </div>
+            <div class="col-8 pt-3">
+                <div class="form-group row">
+                    <div class="col-3">
+                        <label asp-for="statusDescription.StatusDescription"></label>
+                    </div>
+                    <div class="col-9">
+                        <input class="form-control" asp-for="statusDescription.StatusDescription" readonly />
+                        <span class="text-danger" asp-validation-for="statusDescription.StatusDescription"></span>
+                    </div>
+
+                </div>
+                <div class="form-group row">
+                    <div class="col-3">
+                        <label asp-for="PitchEventsObj.PitchDateTime"></label>
+                    </div>
+                    <div class="col-9">
+                        <input type="text" class="form-control" asp-for="PitchEventsObj.PitchDateTime" value="@Model.PitchEventsObj.PitchDateTime.ToShortDateString()" readonly />
+                        <span class="text-danger" asp-validation-for="PitchEventsObj.PitchDateTime"></span>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-3">
+                        <label asp-for="PitchEventsObj.CashFunds"></label>
+                    </div>
+                    <div class="col-9">
+                        <input class="form-control" asp-for="PitchEventsObj.CashFunds" readonly />
+                        <span class="table-danger" asp-validation-for="PitchEventsObj.CashFunds"></span>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-3">
+                        <label asp-for="PitchEventsObj.ServiceFunds"></label>
+                    </div>
+                    <div class="col-9">
+                        <input class="form-control" asp-for="PitchEventsObj.ServiceFunds" readonly />
+                        <span class="table-danger" asp-validation-for="PitchEventsObj.ServiceFunds"></span>
+                    </div>
+                </div>
+                @if (Model.assignedNames.Count == 0)
+                {<h4 style="color:red;">No Judges Assigned</h4> }
+                else
+                {
+                    <h3>Judges Assigned</h3>
+
+                    @foreach (var judge in Model.assignedNames)
+                    {
+                        <div>@judge</div>
+                    }
+                }
+
+                <h3 style="border-bottom: 1px solid #325d88">Applications In Event </h3>
+                @if (Model.ListOfApplications == null || Model.ListOfApplications.Count() == 0)
+                {
+                    <div style="color:red;">No applications Being Judged</div>
+                }
+                else
+                {
+
+                    @foreach (var item in Model.ListOfApplications)
+                    {
+                        <div class="pb-2">
+                            @item.BusinessName
+                        </div>
+                    }
+                }
+
+            </div>
+            <div class="col-5" style="margin-left:auto; margin-right:auto">
+                <a asp-page="./Index" class="btn-primary form-control btn center">Back to List</a>
+            </div>
+        </div>
+    </div>
+</form>

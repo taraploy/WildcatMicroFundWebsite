@@ -1,0 +1,90 @@
+﻿@page
+@model WMF.Pages.Admin.JudgeApplication.IndexModel
+@*This page is used for the admin to judge the initial application once the application status becomes
+    pending approval.  The admin can see this page at any time, however, it is only editable if the
+    status is pending approval *@
+
+<body onload="calcTotal()">
+    <div class="container">
+        <form method="post">
+            <div class="form-group row">
+                <div class="col-9">
+                    <h2 class="text-primary">Judging Application - Please Review Your Scores</h2>
+                </div>
+            </div>
+
+            @{ int questionNumber = 1; }
+            @foreach (var response in @Model.QuestionResponseList)
+            {
+                <div class="row">
+                    <input asp-for="@response.ApplicationId" hidden />
+                    <div class="col-12">
+                        <p><strong>@questionNumber. What do you give this application on @Model.JudgesScoreList[questionNumber - 1].ScoringQuestions.ScoreQuestions:</strong></p>
+                    </div>
+                    <div class="col-6 text-sm-center text-lg-left">
+                        <p><b>Score:</b> @Model.JudgesScoreList[questionNumber - 1].JudgeScore</p>
+
+                        <p><b>Comment:</b> @(Model.JudgesScoreList[questionNumber - 1].JudgeComment != null ? Model.JudgesScoreList[questionNumber - 1].JudgeComment : " ")</p>
+                    </div>
+                    <div class="col-6 text-sm-center text-lg-left">
+                        <p>
+                            <b>Response:</b> @response.QuestionResponse
+                        </p>
+                    </div>
+                </div>
+                <br />
+                questionNumber++;
+            }
+
+            @{bool scoreBool = true;}
+
+            @foreach (var score in Model.JudgesScoreList)
+            {
+                @if (score.JudgeScore == 0)
+                {//because we had a invalid input i kick us out of the foreach and force the user to anwser the missed questions
+                    scoreBool = false;
+                    break;
+                }
+            }
+
+            <div class="text-center" style="border-style:solid; width:60%; padding: 16px;">
+                <h5>Reasoning for Approval/Rejection/Return:</h5>
+                <div class="col-3">
+                    <textarea required="required" cols="40" rows="5" name="Comments"></textarea>
+                    <span class="text-danger"></span>
+                </div>
+            </div>
+
+
+            <h2 id="tot">Total: @Model.totalPts / @Model.maxPts </h2>
+            <h4 id="totalMsg"></h4>
+
+            <a asp-page="Upsert" class="btn btn-primary" style="width: 15%; margin-bottom: 8px" asp-route-id="@Model.QuestionResponseList[0].ApplicationId">
+                <i class="fas fa-plus"></i>&nbsp;Edit Scores
+            </a>
+            <input type="submit" onclick="return confirm('Are you sure you want to APPROVE this application?')" name="agree" class="btn btn-success form-control" style="width: 15%; margin-bottom: 8px" asp-route-id="@Model.QuestionResponseList[0].ApplicationId" value=" Approve " />
+
+            <button asp-page-handler="Reject" class="btn btn-danger form-control" onclick="return confirm('Are you sure you want to REJECT this application?')" style="width: 15%; margin-bottom: 8px" asp-route-id="@Model.QuestionResponseList[0].ApplicationId">Reject</button>
+            <button asp-page-handler="Return" class="btn btn-danger form-control" onclick="return confirm('Are you sure you want to RETURN this application?')" style="width: 15%; margin-bottom: 8px" asp-route-id="@Model.QuestionResponseList[0].ApplicationId">Return</button>
+
+        </form>
+    </div>
+</body>
+
+@section Scripts{
+    <script>
+        function calcTotal() {
+            if (('@Model.totalPts' / '@Model.maxPts') > '@Model.minPercentage') {
+                document.getElementById('tot').style.color = '#34eb7d'
+                document.getElementById('totalMsg').style.color = '#34eb7d'
+            document.getElementById('totalMsg').innerText = "Score is above the minimum score"
+        }
+        else {
+                document.getElementById('tot').style.color = '#eb4f34'
+                document.getElementById('totalMsg').style.color = '#eb4f34'
+            document.getElementById('totalMsg').innerText = "Score is below the minimum score"
+        }
+    }
+    </script>
+
+}

@@ -1,0 +1,117 @@
+﻿@using WMF.Utility
+@using Microsoft.AspNetCore.Http
+@inject IHttpContextAccessor HttpContextAccessor
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Wildcat Microfund Website</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/lib/font-awesome/css/all.css" />
+    <link rel="stylesheet" type="text/css" href="~/css/site.css" />
+    <link rel="stylesheet" type="text/css" href="~/css/toastr.css" />
+    <link rel="stylesheet" type="text/css" href="~/css/jquery-ui.min.css" />
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.21/css/jquery.dataTables.min.css" />
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-timepicker/1.13.18/jquery.timepicker.min.css" />
+</head>
+
+<body class="search-background">
+    <header>
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-secondary text-white border-bottom box-shadow mb-3">
+            <a class="navbar-brand" asp-area="" asp-page="/ApplicationProfile/Home/HomePage"><img height="75" src="~/images/logo.png" alt="logo" /> </a>
+            <div class="container">
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
+                    <partial name="_LoginPartial" />
+                    <ul class="navbar-nav flex-grow-1">
+                        @if (User.IsInRole(SD.AdministratorRole))
+                        {
+                            <li class="nav-item dropdown">                              
+                                <div class="row">
+                                    <div class="col-auto">
+                                        <a class="nav-link text-white" asp-page="/Admin/User/Index">User</a>
+                                    </div>
+                                    <div class="col-auto text-sm-center text-lg-left">
+                                        <a class="nav-link text-white" asp-page="/Admin/QuestionCategory/Index">Categories</a>
+                                    </div>
+                                    <div class="col-auto text-sm-center text-lg-left">
+                                        <a class="nav-link text-white" asp-page="/Admin/Questions/Index">Questions</a>
+                                    </div>
+                                    <div class="col-auto text-sm-center text-lg-left">
+                                        <a class="nav-link text-white" asp-page="/Admin/ReviewApplications/Index">Review Applications</a>
+                                    </div>
+                                    <div class="col-auto text-sm-center text-lg-left">
+                                        <a class="nav-link text-white" asp-page="/Admin/PitchEvent/Index">Pitch Events</a>
+                                    </div>
+                                    <div class="col-auto text-sm-center text-lg-left">
+                                        <a class="nav-link text-white" asp-page="/Admin/RackAndStack/Index" target="_blank">Rack And Stack</a>
+                                    </div>
+                                    <div class="col-auto text-sm-center text-lg-left">
+                                        <a class="nav-link text-white" asp-page="/Admin/Awards/Index">Awards</a>
+                                    </div>
+                                </div>
+                            </li>
+                         }
+                        @if (User.IsInRole(SD.JudgeRole))
+                        {
+                            <li class="nav-item">                                
+                                <a class="text-black" asp-page="/Judge/Home/Index">Judge Applications</a>                                
+                            </li>
+                        }
+                        @if (User.IsInRole(SD.MentorRole))
+                        {
+                            <li class="nav-item dropdown">
+                                <a class="nav-link text-white dropdown-toggle" href="#" id="navbarDropDown" data-toggle="dropdown">
+                                    Mentor
+                                </a>
+                                <div class="dropdown-menu">
+                                    <a class="dropdown-item text-black" asp-page="/Admin/ReviewApplications/Index">Review Applications</a>
+                                </div>
+                            </li>
+                        }
+                        @if (User.IsInRole(SD.ApplicantRole))
+                        {
+                            <li class="nav-item dropdown">
+                                <div class="col-auto">
+                                    <a class="nav-link text-white" asp-page="/ApplicationProfile/Home/Index">Applications</a>
+                                </div>
+                            </li>
+                        }
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+    <div class="container-fluid ">
+        <main role="main" class="pb-3">
+            @RenderBody()
+        </main>
+    </div>
+
+    <footer class="border-top footer text-muted">
+        <div class="container">
+            &copy; 2021 - WildcatMicrofund - <a class="text-info" asp-area="" asp-page="/About">About</a>
+        </div>
+    </footer>
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    <script src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/plug-ins/1.10.22/dataRender/datetime.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
+    <script src="https://cdn.datatables.net/plug-ins/1.10.21/sorting/datetime-moment.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js"></script>
+    <script src="https://cloud.tinymce.com/stable/tinymce.min.js?apiKey=jj8trmgp119p83muorzra371bk86eq90u9ydhs448bpvcilw"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-timepicker/1.13.18/jquery.timepicker.min.js"></script>
+
+    @RenderSection("Scripts", required: false)
+</body>
+</html>

@@ -1,0 +1,44 @@
+﻿@page
+@model WMF.Pages.Admin.RackAndStack.DetailsModel
+@{
+}
+
+<h2>Pitch Event on @Model.PitchEventsObj.PitchDateTime.ToShortDateString() </h2>
+<div class="container center">
+@foreach (var app in Model.ListOfApplications)
+{
+    var total = 0.0;
+    <h3 style="color:blue; border-bottom:solid;">@app.BusinessName</h3>
+    @foreach (var quest in Model.ScoringQuestions)
+    {
+        var tot = 0.0;
+        var cnt = 0;
+        var avg = 0.0;
+        <h5 style="color:rebeccapurple">@quest.ScoreQuestions</h5>
+        var cards = Model.judgeAndScores.Where(u => u.applicationId == app.Id);
+        cards = cards.Where(u => u.questionId == quest.ScoringQuestionId);
+        foreach (var card in cards)
+        {
+            <div class="row">
+                <div class="col-6">@card.name</div>
+                <div class="col-6">@card.score</div>
+
+            </div> 
+            cnt = cnt + 1;
+            tot = tot + card.score;
+            total = total + card.score;
+        }
+        avg = tot / cnt;
+        var average = avg.ToString("0.00");
+        <h6>Average:  @average</h6>
+    }
+    var avg2 = total / Model.assignedNames.Count();
+    <h4>Average Total: @avg2.ToString("0.000")</h4>
+}
+</div>
+
+@section Scripts {
+<script>
+
+</script>
+}

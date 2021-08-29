@@ -1,0 +1,176 @@
+﻿@page
+
+@model WMF.Pages.ApplicationProfile.Questions.UpsertModel
+@using WMF.Models;
+
+@*This page is used to display the questions depending on which status category the
+    application is in.  It will be used for initial and followup questions for the applicant.*@
+
+<form method="post" asp-action="Upsert" enctype="multipart/form-data">
+    <style>
+        input[type=text] {
+            width: 50%;
+            padding: 2px 10px;
+            margin: 2px 0;
+            box-sizing: border-box;
+            border-radius: 4px;
+            background-color: #f8f8f8;
+        }
+
+        textarea {
+            width: 50%;
+            vertical-align: top;
+            box-sizing: border-box;
+            border-radius: 4px;
+            background-color: lightyellow;
+            font-size: 1em;
+            line-height: 1;
+            padding: 1.5em var(--padding-x);
+            border-width: 2px;
+            border-style: solid;
+        }
+
+        .na {
+            background-color: lightblue;
+        }
+    </style>
+
+    <div style="padding:5px; background-color:white;">
+        <table width="75%" id="dataTable" border="0" cellpadding="0" cellspacing="0">
+            <tr>
+                <th width="1%"></th>
+                <th width="25%">Question</th>
+                <th width="74%">Response</th>
+            </tr>
+            @if (Model != null && Model.QuestionResponseList.Count > 0)
+            {
+                @*@for (int i = 0; i <= @Model.QuestionsResponseList; i++) /*(var i in Model.QuestionResponseList)*/*@
+                @for(int i = 0; i < Model.QuestionResponseList.Count; i++)
+                {
+                    <tr style="border:1px solid black">
+                        <td><strong>@(i + 1).</strong></td>
+                        <td><strong>@Model.QuestionResponseList[i].Questions.Question</strong></td>
+                        @if (Model.QuestionResponseList[i].Questions.QuestionType == "TA_150")
+                        {
+                            <td> <textarea cols="30" rows="5" asp-for="@Model.QuestionResponseList[i].QuestionResponse"></textarea></td>
+                        }
+                        else if (Model.QuestionResponseList[i].Questions.QuestionType == "Text_NA")
+                        {
+                            <td>
+                                <textarea class="na" cols="30" rows="5" asp-for="@Model.QuestionResponseList[i].QuestionResponse"
+                                          onblur="if (this.innerHTML == '') {this.innerHTML = 'N/A';}"
+                                          onfocus="if (this.innerHTML == 'N/A') {this.innerHTML = '';}">
+                                </textarea>
+                            </td>
+                        }
+                        else if (Model.QuestionResponseList[i].Questions.QuestionType == "RB_Status")
+                        {
+                            <td>
+                                Concept <input type="radio" id="status" value="Concept" asp-for="@Model.QuestionResponseList[i].QuestionResponse" />
+                                &nbsp;Already Started <input type="radio" id="status" value="Already Started" asp-for="@Model.QuestionResponseList[i].QuestionResponse" />
+                            </td>
+                        }
+                        else if (Model.QuestionResponseList[i].Questions.QuestionType == "RB_YesNo")
+                        {
+                            <td>
+                                Yes <input type="radio" id="YesNo" value="Yes" asp-for="@Model.QuestionResponseList[i].QuestionResponse" />
+                                &nbsp;No <input type="radio" id="YesNo" value="No" asp-for="@Model.QuestionResponseList[i].QuestionResponse" />
+                            </td>
+                        }
+                        else if (Model.QuestionResponseList[i].Questions.QuestionType == "Files")
+                        {
+                            <td>
+                                <input type="file" class="form-contol" id="uploadBox" name="files" asp-for="@Model.QuestionResponseList[i].QuestionResponse" />
+                                <input type="text" onblur="if (this.innerHTML == '') {this.innerHTML = 'N/A';}"
+                                       onfocus="if (this.innerHTML == 'N/A') {this.innerHTML = '';}" asp-for="@Model.QuestionResponseList[i].QuestionResponse" />
+                                <span class="text-danger" asp-validation-for="@Model.QuestionResponseList[i].QuestionResponse"></span>
+                            </td>
+                        }
+                        @*else if (Model.QuestionResponseList[j].Questions.Type == "DD_Industry")
+                            {
+                                @Html.DropDownList("Industry", new SelectList(Model.QuestionResponseList[j].QuestionResponse));
+                                <td>
+                                    <select name="Industry" asp-for="@Model.QuestionResponseList[j].QuestionResponse" >
+                                        <option value="Retail">Retail</option>
+
+                                        <option value="Manufacturing">Manufacturing</option>
+
+                                        <option value="E-Commerce">E-Commerce</option>
+
+                                        <option value="Mobile App">Mobile App</option>
+
+                                        <option value="Consumer Services">Consumer Services</option>
+
+                                        <option value="Food & Beverage">Food & Beverage</option>
+
+                                        <option value="Games/Entertainment">Games/Entertainment</option>
+
+                                        <option value="Education">Education</option>
+
+                                        <option value="Business Products and Services (B2B)">Business Products and Services (B2B)</option>
+
+                                        <option value="Financial Services">Financial Services</option>
+
+                                        <option value="SAAS - Enterprise Software">SAAS - Enterprise Software</option>
+
+                                        <option value="Other">Other</option>
+                                    </select>
+                                </td>
+                            }*@
+                        else
+                        {
+                            <td>
+                                <input asp-for=" @Model.QuestionResponseList[i].QuestionResponse" />
+                            </td>
+                        }
+                        <td><input asp-for="@Model.QuestionResponseList[i].Id" hidden /></td>
+                        <td><input asp-for="@Model.QuestionResponseList[i].ApplicationId" hidden /></td>
+                        <td><input asp-for="@Model.QuestionResponseList[i].QuestionId" hidden /></td>
+                        <td><input asp-for="@Model.QuestionResponseList[i].QuestionResponseDate" hidden /></td>                   
+                    </tr>
+                }
+            }
+        </table>
+        <br />
+        <button type="submit" asp-page-handler="Bulk" class="btn btn-primary form-control">Save Application</button>
+    </div>
+</form> @* Here I will add Jquery Code for validation and to dynamically add new rows / Remove rows etc *@
+
+@section Scripts{
+    <script language="javascript">
+        $(document).ready(function () {
+            //1. Add new row
+            $("#addNew").click(function (e) {
+                e.preventDefault();
+                var $tableBody = $("#dataTable");
+                var $trLast = $tableBody.find("tr:last");
+                var $trNew = $trLast.clone();
+                var suffix = $trNew.find(':input:first').attr('name').match(/\d+/);
+                $trNew.find("td:last").html('<a href="#" class="remove">Remove</a>');
+                $.each($trNew.find(':input'), function (i, val) {
+                    // Replaced Name
+                    var oldN = $(this).attr('name');
+                    var newN = oldN.replace('[' + suffix + ']', '[' + (parseInt(suffix) + 1) + ']');
+                    $(this).attr('name', newN);
+                    //Replaced value
+                    var type = $(this).attr('type');
+                    if (type.toLowerCase() == "text") {
+                        $(this).attr('value', '');
+                    }
+                    // If you have another Type then replace with default value
+                    $(this).removeClass("input-validation-error");
+                });
+                $trLast.after($trNew);
+                // Re-assign Validation
+                var form = $("form")
+                    .removeData("validator")
+                    .removeData("unobtrusiveValidation");
+                $.validator.unobtrusive.parse(form);
+            });
+            // 2. Remove
+            $('a.remove').live("click", function (e) {
+                e.preventDefault();
+                $(this).parent().parent().remove();
+            });
+        });</script>
+}

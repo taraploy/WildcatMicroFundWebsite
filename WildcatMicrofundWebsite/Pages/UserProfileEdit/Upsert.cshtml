@@ -1,0 +1,209 @@
+﻿@page
+@model WMF.Pages.UserProfileEdit.UpsertModel
+@{
+}
+<h4>@ViewData["Title"]</h4>
+<form method="post">
+    <input asp-for="@Model.applicationUserObj.Id" hidden />
+    <div class="container">
+        <div class="row px-2 mx-2 backgroundWhite border">
+            <div class="col-8 pt-3">
+                <div class="form-group">
+                    <div class="col-4">
+                        <label asp-for="applicationUserObj.UserName"></label>
+                    </div>
+                    <div class="col-5">
+                        <input class="form-control" asp-for="@Model.applicationUserObj.UserName" disabled />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-4">
+                        <label asp-for="Input.PhoneNumber"></label>
+                    </div>
+                    <div class="col-5">
+                        <input class="form-control" asp-for="Input.PhoneNumber" />
+                        <span class="text-danger" asp-validation-for="Input.PhoneNumber"></span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-4">
+                        <label asp-for="applicationUserObj.FirstName"></label>
+                    </div>
+                    <div class="col-5">
+                        <input class="form-control" asp-for="applicationUserObj.FirstName" />
+                        <span class="text-danger" asp-validation-for="applicationUserObj.FirstName"></span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-4">
+                        <label asp-for="applicationUserObj.LastName"></label>
+                    </div>
+                    <div class="col-5">
+                        <input class="form-control" asp-for="applicationUserObj.LastName" />
+                        <span class="text-danger" asp-validation-for="applicationUserObj.LastName"></span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-4">
+                        <label asp-for="applicationUserObj.Address"></label>
+                    </div>
+                    <div class="col-5">
+                        <input class="form-control" asp-for="applicationUserObj.Address" />
+                        <span class="text-danger" asp-validation-for="applicationUserObj.Address"></span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-4">
+                        <label asp-for="applicationUserObj.City"></label>
+                    </div>
+                    <div class="col-5">
+                        <input class="form-control" asp-for="applicationUserObj.City" />
+                        <span class="text-danger" asp-validation-for="applicationUserObj.City"></span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-4">
+                        <label asp-for="applicationUserObj.County"></label>
+                    </div>
+                    <div class="col-5">
+                        <input class="form-control" asp-for="applicationUserObj.County" />
+                        <span class="text-danger" asp-validation-for="applicationUserObj.County"></span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-4">
+                        <label asp-for="applicationUserObj.Zip"></label>
+                    </div>
+                    <div class="col-5">
+                        <input class="form-control" asp-for="applicationUserObj.Zip" />
+                        <span class="text-danger" asp-validation-for="applicationUserObj.Zip"></span>
+                    </div>
+                </div>
+                <div class="row my-1">
+                    <div class="col-3">
+                        <label asp-for="@Model.applicationUserObj.BirthDate"></label>
+                    </div>
+                    <div class="col-9">
+                        <input id="datepicker" asp-for="@Model.applicationUserObj.BirthDate" type="text" class="form-control" value="@Model.applicationUserObj.BirthDate.ToShortDateString()" />
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-4">
+                        <label asp-for="applicationUserObj.Gender"></label>
+                    </div>
+                    <div class="col-5">
+                        <select asp-for="applicationUserObj.Gender">
+                            <option value="--">Prefer not to share</option>
+                            <option value="Female">Female</option>
+                            <option value="Male">Male</option>
+                            <option value="Transgender">Transgender</option>
+                            <option value="Non-Binary">Non-Binary</option>
+                        </select>
+                        <span class="text-danger" asp-validation-for="applicationUserObj.Gender"></span>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-9">
+                        <label asp-for="applicationUserObj.Race">I identify my race/ethnicity as: <br />  </label>
+                        <select asp-for="applicationUserObj.Race">
+                            <option value="--">Prefer not to share</option>
+                            <option value="African American/Black"> African American/Black</option>
+                            <option value="Asian">Asian</option>
+                            <option value="Pacific Islander">Pacific Islander</option>
+                            <option value="White">White</option>
+                            <option value="Hispanic/Latino">Hispanic/Latino</option>
+                            <option value="Native American">Native American</option>
+                            <option value="Bi-Racial">Bi-Racial</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-9">
+                        <label asp-for="applicationUserObj.Income">Income Level: <br />  </label>
+                        <select asp-for="applicationUserObj.Income">
+                            <option value="--">Choose not to answer</option>
+                            <option value="$0-9,999">$0-9,999</option>
+                            <option value="$10,000-19,999">$10,000-19,999</option>
+                            <option value="$20,000-29,999">$20,000-29,999</option>
+                            <option value="$30,000-39,999">$30,000-39,999</option>
+                            <option value="$40,000-49,999">$40,000-49,999</option>
+                            <option value="$50,000-59,999">$50,000-59,999</option>
+                            <option value="$60,000-69,999">$60,000-69,999</option>
+                            <option value="$70,000-79,999">$70,000-79,999</option>
+                            <option value="$80,000-89,999">$80,000-89,999</option>
+                            <option value="$90,000-99,999">$90,000-99,999</option>
+                            <option value="$100,000 and up">$100,000 and up</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-12">
+                        <label asp-for="applicationUserObj.Education">Highest level of education completed: <br />  </label>
+                        <select asp-for="applicationUserObj.Education">
+                            <option value="--">Choose not to answer</option>
+                            <option value="Less than high school">Less than high school</option>
+                            <option value="High school graduate">High school graduate</option>
+                            <option value="Vocational/trade/technical school">Vocational/trade/technical school</option>
+                            <option value="Some College">Some College</option>
+                            <option value="Bachelor's degree">Bachelor's degree</option>
+                            <option value="Some graduate school">Some graduate school</option>
+                            <option value="Graduate degree">Graduate degree</option>
+                            <option value="Doctoral degree">Doctoral degree</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-9">
+                        <label asp-for="applicationUserObj.Residence"> Residence Environment: <br />  </label>
+                        <select asp-for="applicationUserObj.Residence">
+                            <option value="Suburb">Suburb</option>
+                            <option value="Rural">Rural</option>
+                            <option value="Urban">Urban</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-9">
+                        <label asp-for="applicationUserObj.Military"> Military Status: <br /> </label>
+                        <select asp-for="applicationUserObj.Military">
+                            <option value="None">None</option>
+                            <option value="Active">Active</option>
+                            <option value="Veteran">Veteran</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-9 offset-1">
+                        <div class="row">
+                            <div class="col-6">
+                                <button type="submit" onclick="return validateInput();" class="btn-primary btn form-control">Save</button>
+                            </div>
+                            <div class="col-6">
+                                <a asp-page="/ApplicationProfile/Home/Index" class="btn-primary form-control btn">Cancel</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+
+@section Scripts{
+    <script>
+        $("#datepicker").datepicker({
+            dateFormat: "mm/dd/yy",
+            changeMonth: true,
+            changeYear: true,
+            yearRange: "1940:2021"
+        });
+        function validateInput() {
+            var fd = document.getElementById("datepicker").value;
+            if (fd.toString() == '') {
+                swal("Error", "Please select Birth Date", "error");
+                return false;
+            }
+            return true;
+        }
+    </script>
+}

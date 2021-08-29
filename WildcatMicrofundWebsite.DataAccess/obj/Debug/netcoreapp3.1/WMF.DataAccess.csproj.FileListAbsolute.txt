@@ -1,0 +1,16 @@
+O:\WeberStateUniversity\Catalyst Lab\Our Repo\WMF\WildcatMicrofundWebsite\WildcatMicrofundWebsite.DataAccess\bin\Debug\netcoreapp3.1\WMF.DataAccess.deps.json
+O:\WeberStateUniversity\Catalyst Lab\Our Repo\WMF\WildcatMicrofundWebsite\WildcatMicrofundWebsite.DataAccess\bin\Debug\netcoreapp3.1\WMF.DataAccess.runtimeconfig.json
+O:\WeberStateUniversity\Catalyst Lab\Our Repo\WMF\WildcatMicrofundWebsite\WildcatMicrofundWebsite.DataAccess\bin\Debug\netcoreapp3.1\WMF.DataAccess.runtimeconfig.dev.json
+O:\WeberStateUniversity\Catalyst Lab\Our Repo\WMF\WildcatMicrofundWebsite\WildcatMicrofundWebsite.DataAccess\bin\Debug\netcoreapp3.1\WMF.DataAccess.dll
+O:\WeberStateUniversity\Catalyst Lab\Our Repo\WMF\WildcatMicrofundWebsite\WildcatMicrofundWebsite.DataAccess\bin\Debug\netcoreapp3.1\WMF.DataAccess.pdb
+O:\WeberStateUniversity\Catalyst Lab\Our Repo\WMF\WildcatMicrofundWebsite\WildcatMicrofundWebsite.DataAccess\bin\Debug\netcoreapp3.1\WMF.Models.dll
+O:\WeberStateUniversity\Catalyst Lab\Our Repo\WMF\WildcatMicrofundWebsite\WildcatMicrofundWebsite.DataAccess\bin\Debug\netcoreapp3.1\WMF.Models.pdb
+O:\WeberStateUniversity\Catalyst Lab\Our Repo\WMF\WildcatMicrofundWebsite\WildcatMicrofundWebsite.DataAccess\obj\Debug\netcoreapp3.1\WMF.DataAccess.csproj.AssemblyReference.cache
+O:\WeberStateUniversity\Catalyst Lab\Our Repo\WMF\WildcatMicrofundWebsite\WildcatMicrofundWebsite.DataAccess\obj\Debug\netcoreapp3.1\WMF.DataAccess.AssemblyInfoInputs.cache
+O:\WeberStateUniversity\Catalyst Lab\Our Repo\WMF\WildcatMicrofundWebsite\WildcatMicrofundWebsite.DataAccess\obj\Debug\netcoreapp3.1\WMF.DataAccess.AssemblyInfo.cs
+O:\WeberStateUniversity\Catalyst Lab\Our Repo\WMF\WildcatMicrofundWebsite\WildcatMicrofundWebsite.DataAccess\obj\Debug\netcoreapp3.1\WMF.DataAccess.csproj.CoreCompileInputs.cache
+O:\WeberStateUniversity\Catalyst Lab\Our Repo\WMF\WildcatMicrofundWebsite\WildcatMicrofundWebsite.DataAccess\obj\Debug\netcoreapp3.1\WMF.DataAccess.csproj.CopyComplete
+O:\WeberStateUniversity\Catalyst Lab\Our Repo\WMF\WildcatMicrofundWebsite\WildcatMicrofundWebsite.DataAccess\obj\Debug\netcoreapp3.1\WMF.DataAccess.dll
+O:\WeberStateUniversity\Catalyst Lab\Our Repo\WMF\WildcatMicrofundWebsite\WildcatMicrofundWebsite.DataAccess\obj\Debug\netcoreapp3.1\WMF.DataAccess.pdb
+O:\WeberStateUniversity\Catalyst Lab\Our Repo\WMF\WildcatMicrofundWebsite\WildcatMicrofundWebsite.DataAccess\obj\Debug\netcoreapp3.1\WMF.DataAccess.genruntimeconfig.cache
+O:\WeberStateUniversity\Catalyst Lab\Our Repo\WMF\WildcatMicrofundWebsite\WildcatMicrofundWebsite.DataAccess\obj\Debug\netcoreapp3.1\WMF.DataAccess.GeneratedMSBuildEditorConfig.editorconfig

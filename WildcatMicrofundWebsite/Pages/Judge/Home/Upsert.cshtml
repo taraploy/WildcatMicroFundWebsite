@@ -1,0 +1,104 @@
+﻿@page
+@model WMF.Pages.Judge.Home.UpsertModel
+@{
+}
+
+@*
+    #492365 - dark purple
+    #8446ac - purple
+*@
+
+<style>
+    .btn-save-scores {
+        margin: 0 auto;
+        width: 50%;
+        color: #fff;
+        background-color: #492365;
+        transition: all 0.3s ease-in-out;
+    }
+
+        .btn-save-scores:hover {
+            color: #fff;
+            background-color: #8446ac;
+        }
+</style>
+
+<body>
+    <div class="container border backgroundWhite">
+        <form method="POST">
+            <div class="form-group row">
+                <div class="col-12">
+                    <div class="row">
+                        <div class="col-12 text-center">
+                            <h2 class="" style="color: #492365;">Pitch Event Judging Application<br /></h2>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            @{ int questionNumber = 1; }
+            <div class="row">
+                <div class="col-12">
+                    @foreach (var score in @Model.JudgesScoreList)
+                    {
+                        <input asp-for="@score.ScoringApplicationId" hidden />
+                        <div class="col-12 text-sm-center text-lg-left">
+                            <p><strong>@questionNumber. What do you Give this application on @Model.JudgesScoreList[questionNumber - 1].ScoringQuestions.ScoreQuestions:</strong></p>
+                        </div>
+                        <div class="col-12">
+                            <div class="row">
+                                <div class="col-2">
+                                    <label>Score(Out of @Model.JudgesScoreList[questionNumber - 1].ScoringQuestions.MaxScore):</label>
+                                </div>
+                                <div class="col-1">
+                                    <input type="number" id="score" min="0" , max="@Model.JudgesScoreList[questionNumber - 1].ScoringQuestions.MaxScore" onchange="calcTotal()" class="form-control" asp-for="@Model.JudgesScoreList[questionNumber - 1].JudgeScore" />
+                                    <span class="text-danger" asp-validation-for="@Model.JudgesScoreList[questionNumber - 1].JudgeScore"></span>
+                                </div>
+                            </div>
+                            <br />
+                        </div>
+                        <div class="col-12">
+                            <div class="row">
+                                <div class="col-2">
+                                    <label>Optional Comments:</label>
+                                </div>
+                                <div class="col-3">
+                                    <textarea cols="75" rows="5" asp-for="@Model.JudgesScoreList[questionNumber-1].JudgeComment"></textarea>
+                                    <span class="text-danger" asp-validation-for="@Model.JudgesScoreList[questionNumber-1].JudgeComment"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <input asp-for="@Model.JudgesScoreList[questionNumber-1].Id" hidden />
+                        <input asp-for="@Model.JudgesScoreList[questionNumber-1].ScoringQuestionsId" hidden />
+                        <input asp-for="@Model.JudgesScoreList[questionNumber-1].ScoringApplicationId" hidden />
+                        <br />
+                        questionNumber++;
+                    }
+                    <div class="col-12">
+                        <h4>TOTAL: <output id="totalScore">@Model.initialPts</output> / @Model.ptsPossible </h4>
+                    </div>
+                </div>
+            </div>
+
+            <div class="text-center">
+                <button type="submit" asp-page-handler="Bulk" class="text-center btn btn-save-scores">Save Scores</button>
+            </div>
+        </form>
+    </div>
+</body>
+
+@section Scripts{
+    <script>
+    function calcTotal() {
+        var tot = 0;
+        for (var i = 0; i < '@Model.ptCnt'; i++) {
+            var str = 'JudgesScoreList[' + i + '].JudgeScore';
+            var arr = document.getElementsByName(str);
+            arr.forEach(function (number) {
+                tot = tot + parseInt(number.value);
+            });
+        }
+        document.getElementById('totalScore').innerText = tot;
+    }
+    </script>
+}

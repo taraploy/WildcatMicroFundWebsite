@@ -1,0 +1,12 @@
+O:\WeberStateUniversity\Catalyst Lab\Our Repo\WMF\WildcatMicrofundWebsite\WildcatMicrofundWebsite.Models\obj\Debug\netcoreapp5.0\WMF.Models.csproj.AssemblyReference.cache
+O:\WeberStateUniversity\Catalyst Lab\Our Repo\WMF\WildcatMicrofundWebsite\WildcatMicrofundWebsite.Models\obj\Debug\netcoreapp5.0\WMF.Models.GeneratedMSBuildEditorConfig.editorconfig
+O:\WeberStateUniversity\Catalyst Lab\Our Repo\WMF\WildcatMicrofundWebsite\WildcatMicrofundWebsite.Models\obj\Debug\netcoreapp5.0\WMF.Models.AssemblyInfoInputs.cache
+O:\WeberStateUniversity\Catalyst Lab\Our Repo\WMF\WildcatMicrofundWebsite\WildcatMicrofundWebsite.Models\obj\Debug\netcoreapp5.0\WMF.Models.AssemblyInfo.cs
+O:\WeberStateUniversity\Catalyst Lab\Our Repo\WMF\WildcatMicrofundWebsite\WildcatMicrofundWebsite.Models\obj\Debug\netcoreapp5.0\WMF.Models.csproj.CoreCompileInputs.cache
+O:\WeberStateUniversity\Catalyst Lab\Our Repo\WMF\WildcatMicrofundWebsite\WildcatMicrofundWebsite.Models\bin\Debug\netcoreapp5.0\WMF.Models.deps.json
+O:\WeberStateUniversity\Catalyst Lab\Our Repo\WMF\WildcatMicrofundWebsite\WildcatMicrofundWebsite.Models\bin\Debug\netcoreapp5.0\WMF.Models.dll
+O:\WeberStateUniversity\Catalyst Lab\Our Repo\WMF\WildcatMicrofundWebsite\WildcatMicrofundWebsite.Models\bin\Debug\netcoreapp5.0\ref\WMF.Models.dll
+O:\WeberStateUniversity\Catalyst Lab\Our Repo\WMF\WildcatMicrofundWebsite\WildcatMicrofundWebsite.Models\bin\Debug\netcoreapp5.0\WMF.Models.pdb
+O:\WeberStateUniversity\Catalyst Lab\Our Repo\WMF\WildcatMicrofundWebsite\WildcatMicrofundWebsite.Models\obj\Debug\netcoreapp5.0\WMF.Models.dll
+O:\WeberStateUniversity\Catalyst Lab\Our Repo\WMF\WildcatMicrofundWebsite\WildcatMicrofundWebsite.Models\obj\Debug\netcoreapp5.0\ref\WMF.Models.dll
+O:\WeberStateUniversity\Catalyst Lab\Our Repo\WMF\WildcatMicrofundWebsite\WildcatMicrofundWebsite.Models\obj\Debug\netcoreapp5.0\WMF.Models.pdb

@@ -1,0 +1,65 @@
+﻿@page
+@model WMF.Pages.ApplicationProfile.Home.UpsertModel
+@* This page is just taking in the bussiness name to start the application process*@
+
+<form method="post" asp-action="Upsert">
+    <input asp-for="@Model.ApplicationObj.Id" hidden />
+    <div class="container">
+        <div class="row px-2 mx-2 backgroundWhite border">
+            <div class="col-12 px-3" style="border-bottom: 1px solid #325d88">
+                <h2 class="text-primary">@(Model.ApplicationObj.Id != 0 ? "Update" : "Create") Application</h2>
+            </div>
+            <div class="container">
+                <h2 class="text-center"><br />Wildcat Micro Fund Submission Form </h2>
+                <p><br />Please fill out the form to begin the application process.</p>
+                <p>
+                    The objective of the Wildcat Micro Fund is to help you develop your early-stage business or
+                    concept and get it started. Please complete the application below to be considered. If you have
+                    any questions or want help filling out this application, contact Evelyn Jacome Arroyo at ejacomearroyo@weber.edu.
+                </p>
+                <p>
+                    <b>To qualify:</b><br />
+                    You must reside in Weber, Davis, Box Elder, or Morgan County.<br />
+                    Been in business for less than one year.<br />
+                    Sales not more than $3,000 for three successive months.<br />
+                    Have not received more than $25,000 in external funding.<br />
+                    Score at least 60% on this application.
+                </p>
+                <br />
+                <br />
+            </div>
+            <div class="col-8 pt-3">
+                <div class="form-group row">
+                    <div class="col-4">
+                        <label asp-for="ApplicationObj.BusinessName"></label>
+                    </div>
+                    <div class="col-5">
+                        <input class="form-control" asp-for="ApplicationObj.BusinessName" />
+                        <span class="text-danger" asp-validation-for="ApplicationObj.BusinessName"></span>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-9 offset-1">
+                        <div class="row">
+                            @if (Model.ApplicationObj.Id != 0)
+                            {
+                                <div class="col-9">
+                                    <button type="submit" class="btn-primary btn form-control">Save</button>
+                                </div>
+                            }
+                            else
+                            {
+                                <div class="col-6">
+                                    <button type="submit" class="btn-primary btn form-control">Next</button>
+                                </div>
+                                <div class="col-6">
+                                    <a asp-page="./Index" class="btn-primary form-control btn">Cancel</a>
+                                </div>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

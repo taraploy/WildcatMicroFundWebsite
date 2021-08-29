@@ -1,0 +1,128 @@
+﻿@page
+@model WMF.Pages.ApplicationProfile.Home.HomepageModel
+@using WMF.Utility
+@{ ViewData["Title"] = "Homepage";}
+
+@*This is the main home page where everyone will drop into when loggin in.  This will have different uses
+    for each user depending on their role.*@
+
+<div class="container backgroundWhite">
+    <div class="row">
+        <div class="col-12">
+            <div style="text-align: center;">
+                <h4><br />Welcome @Model.ApplicationUser.FullName!</h4><br />
+            </div>
+            <div class="container">
+                <div class="card-deck mb-3 text-center">
+                    <div class="card mb-4">
+                        <div class="card-body text-center">
+                            <p></p>
+                            @if (User.IsInRole(WMF.Utility.SD.AdministratorRole))//checking if the person logged in is an admin and generating their display
+                            {
+                                <h3>The following applications are in need of review:</h3>
+                                //loop through the list of applications and display them in order from most recent
+                                foreach (var application in @Model.ListOfApplications)
+                                {
+                                    <div class="row">
+                                        <a asp-page="/ApplicationProfile/Questions/Index" asp-route-id="@application.Id" class="btn-primary form-control btn">@application.BusinessName  @application.ApplicationDate</a>
+                                    </div>
+                                    <p></p>
+                                }
+                                <a asp-page="/Admin/ReviewApplications/Index" class="btn btn-success">Review All Applications</a>
+                            }
+                            else if (User.IsInRole(SD.JudgeRole))
+                            {
+                                <h3>Judging Events</h3>
+                                <br />
+                                <h4 class="text-primary">
+                                    Next Events:
+                                </h4>
+                                <div class="col-12">
+                                    @foreach (var pitchEvent in @Model.ListOfPitchEvents)
+                                    {
+                                        <div class="col-4 d-inline-block">
+                                            @pitchEvent.PitchDateTime
+                                        </div>
+                                    }
+                                </div>
+                                <br />
+                                @if (Model.ApplicationsToJudge.Count == 0)
+                                {
+                                    <p>
+                                        There are no events going on
+                                    </p>
+                                }
+                                else
+                                {
+                                    <p>Judging event is live. Please go to the judging page.</p>
+                                    <a asp-page="/Judge/Home/Index" class="btn btn-md btn-outline-primary" style="width:100px;">Judge</a>
+                                }
+                            }
+                            else if (User.IsInRole(SD.ManagementRole))
+                            {
+                                <h3>Manager</h3>
+                                <a asp-page="/Manager/Home/Index" class="btn btn-md btn-block btn-outline-primary">Management/Intern</a>
+                            }
+                            else if (User.IsInRole(SD.MentorRole))
+                            {
+                                <h3>Mentor</h3>
+                                <a asp-page="/Mentor/Home/Index" class="btn btn-md btn-block btn-outline-primary">Mentor</a>
+                            }
+                            else //at this point if they are not an admin and on this page they are a user
+                            {
+                                <h5>Wildcat Fund Application Form</h5>
+
+                                <h5><br />Click the button below to get started today!</h5>
+                                <a asp-page="./Index" class="btn btn-md btn-block btn-primary" asp-route-id="@Model.ApplicationUser.Id">Application</a>
+                                <br />
+                                @* PopUp notification if user has rejected/returned applications*@
+                                @foreach (var item in @Model.notifyApplications)
+                                {
+                                    <div class="col-12 update_profile_notifi" id="updateProfile" style="box-shadow: 3px 3px 5px #333; background-color: antiquewhite; margin-bottom: -7px;">
+                                        @*Shows approved message*@
+                                        <span class="xBtn ml-5 pl-5" id="xBtn" style="float:right;">&times;</span>
+                                        @if (item.StatusId == SD.StatusApproved)
+                                        {
+                                            <p class="text-center py-2">
+                                                Your application for <span style="color: #1054e1; font-weight:bolder">@item.BusinessName</span>  was <span style="color: #15c252; font-weight:bolder">APPROVED</span> for this reason: <span style="color: #1054e1; font-weight:bolder">@item.Comments</span>
+                                            </p>
+                                        }
+                                        @*shows returned message*@
+                                        @if (item.StatusId == SD.StatusReturned)
+                                        {
+                                            <p class="text-center py-2">
+                                                Your application for <span style="color: #1054e1; font-weight:bolder">@item.BusinessName</span>  was <span style="color: #ff0000; font-weight:bolder">RETURNED</span> for this reason: <span style="color: #1054e1; font-weight:bolder">@item.Comments</span>
+                                            </p>
+                                        }
+                                        @*shows reject message*@
+                                        @if (item.StatusId == SD.StatusArchivedRejectedClosed)
+                                        {
+                                            <p class="text-center py-2">
+                                                Your application for  <span style="color: #1054e1; font-weight:bolder">@item.BusinessName</span> was <span style="color: #ff0000; font-weight:bolder">REJECTED or ARCHIVED or CLOSED</span> for this reason: <span style="color: #1054e1; font-weight:bolder">@item.Comments</span>
+                                            </p>
+                                        }
+                                    </div>
+                                }
+                                @* End PopUp *@
+                            }
+                            <p></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@* Click event to close PopUp (x) *@
+<script>
+    var closebtns = document.getElementsByClassName("xBtn");
+    var i;
+
+    /* Loop through the elements, and hide the parent, when clicked on */
+    for (i = 0; i < closebtns.length; i++) {
+        closebtns[i].addEventListener("click", function () {
+            this.parentElement.style.display = 'none';
+        });
+    }
+</script>

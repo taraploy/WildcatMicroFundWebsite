@@ -1,0 +1,164 @@
+﻿@page
+@model WMF.Pages.Admin.Awards.UpsertModel
+@{ }
+
+
+<form method="post" asp-action="Upsert" enctype="multipart/form-data">
+    <div class="container">
+        <input type="hidden" asp-for="awardVMObj.AwardHistory.Id" />
+        <div class="row px-2 mx-2 backgroundWhite border">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="col-12 px-3" style="border-bottom: 1px solid #325d88">
+                <h2>@(Model.awardVMObj.AwardHistory.Id != 0 ? "Update" : "Create") Award</h2>
+            </div>
+            <input type="hidden" asp-for="getId" />
+            @if (Model.awardVMObj.AwardHistory.Id != 0)
+            {
+                <input type="hidden" asp-for="awardVMObj.Application.BusinessName" />
+                <input type="hidden" asp-for="awardVMObj.Application.Id" />
+            }
+            <div class="col-8 pt-3">
+                <div class="form-group row">
+                    <div class="col-3">
+                        <label asp-for="awardVMObj.Application.BusinessName">Business Name</label>
+                    </div>
+                    <div class="col-9">
+                        <select asp-for="@Model.applicationId">
+                            @foreach (var business in Model.applicationList)
+                            {
+                                <option asp-for="@business.Id" value="@business.Id">@business.BusinessName</option>
+                            }
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-3">
+                        <label asp-for="awardVMObj.AwardHistory.ReqNumber">Req. Number</label>
+                    </div>
+                    <div class="col-9">
+                        <input type="number" asp-for="awardVMObj.AwardHistory.ReqNumber" />
+                        <span class="text-danger" asp-validation-for="awardVMObj.AwardHistory.ReqNumber"></span>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-3">
+                        <label asp-for="awardVMObj.AwardHistory.Provider">Provider</label>
+                    </div>
+                    <div class="col-9">
+                        <input type="text" asp-for="awardVMObj.AwardHistory.Provider" />
+                        <span class="text-danger" asp-validation-for="awardVMObj.AwardHistory.Provider"></span>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-3">
+                        <label asp-for="awardVMObj.AwardHistory.MailDate">Mail Date</label>
+                    </div>
+                    <div class="col-9">
+                        <input class="form-control" type="text" id="datepicker" asp-for="awardVMObj.AwardHistory.MailDate" value="@(Model.awardVMObj.AwardHistory.Id != 0 ? Model.awardVMObj.AwardHistory.MailDate.ToShortDateString() : @DateTime.Now.ToShortDateString())" />
+                        <span class="text-danger" asp-validation-for="awardVMObj.AwardHistory.MailDate"></span>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-3">
+                        <label asp-for="awardVMObj.AwardHistory.AwardDate">Award Date</label>
+                    </div>
+                    <div class="col-9">
+                        <input class="form-control" type="text" id="datepicker2" asp-for="awardVMObj.AwardHistory.AwardDate" value="@(Model.awardVMObj.AwardHistory.Id != 0 ? Model.awardVMObj.AwardHistory.AwardDate.ToShortDateString() : @DateTime.Now.ToShortDateString())" />
+                        <span class="text-danger" asp-validation-for="awardVMObj.AwardHistory.AwardDate"></span>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-3">
+                        <label asp-for="awardVMObj.AwardHistory.AwardAmount">Award Amount</label>
+                    </div>
+                    <div class="col-9">
+                        <input asp-for="awardVMObj.AwardHistory.AwardAmount" />
+                        <span class="text-danger" asp-validation-for="awardVMObj.AwardHistory.AwardAmount"></span>
+                    </div>
+                </div>
+
+                <div>
+                    <label asp-for="awardVMObj.AwardHistory.AwardAgreement">Award Agreement</label>
+                    <input type="file" class="form-contol" id="uploadBox" name="files" asp-for="@Model.awardVMObj.AwardHistory.AwardAgreement" />
+                    <span class="text-danger" asp-validation-for="@Model.awardVMObj.AwardHistory.AwardAgreement"></span>
+                </div>
+                @if (Model.awardVMObj.AwardHistory.AwardAgreement != null)
+                {
+                    <div>
+                        <input type="text" asp-for="awardVMObj.AwardHistory.AwardAgreement" disabled />
+                    </div>
+                }
+                else
+                {
+                    <p>No uploaded files associated.</p>
+                }
+
+                <div class="form-group row">
+                    <div class="col-3">
+                        <label asp-for="awardVMObj.AwardHistory.AwardType">Award Type</label>
+                    </div>
+                    <div class="col-9">
+                        <select asp-for="awardVMObj.AwardHistory.AwardType">
+                            <option value="Cash">Cash</option>
+                            <option value="Services In Kind">Services In Kind</option>
+                        </select>
+                        <span class="text-danger" asp-validation-for="awardVMObj.AwardHistory.AwardType"></span>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-3">
+                        <label asp-for="awardVMObj.AwardHistory.Comments">Comment</label>
+                    </div>
+                    <div class="col-9">
+                        <textarea rows="4" cols="50" asp-for="awardVMObj.AwardHistory.Comments"></textarea>
+                        <span class="text-danger" asp-validation-for="awardVMObj.AwardHistory.Comments"></span>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-9 offset-3">
+                        <div class="row">
+                            <div class="col-6">
+                                <button type="submit" class="btn-primary btn form-control">@(Model.awardVMObj.AwardHistory.Id != 0 ? "Update" : "Create")</button>
+                            </div>
+                            <div class="col-6">
+                                <a asp-page="./Index" class="btn-primary form-control btn">Back to List</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+
+@section Scripts{
+    <script>
+        $("#datepicker").datepicker({
+            dateFormat: "mm/dd/yy",
+            changeMonth: true,
+            changeYear: true,
+            yearRange: "-1:+5"
+        });
+        $("#datepicker2").datepicker({
+            dateFormat: "mm/dd/yy",
+            changeMonth: true,
+            changeYear: true,
+            yearRange: "-1:+5"
+        });
+        function validateInput() {
+            var fd = document.getElementById("datepicker").value;
+            if (fd.toString() == '') {
+                swal("Error", "Please select Pitch Date", "error");
+                return false;
+            }
+            return true;
+        }
+        function ValidateInput() {
+            if (document.getElementById("uploadBox").value == "") {
+                swal('Error', 'Please Select An Image', 'error')
+                return false;
+            }
+            return true;
+        }
+    </script>
+}

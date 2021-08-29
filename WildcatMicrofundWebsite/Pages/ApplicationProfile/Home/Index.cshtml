@@ -1,0 +1,107 @@
+﻿@page
+@model WMF.Pages.Home.ApplicationProfile.PageModel
+@using WMF.Areas.Identity.Pages.Account.Manage
+
+@* This page is for the applicationUser homepage and their profile attributes *@
+<style>
+    .update_profile_notifi {
+        display: block;
+        background: #ecc8c5;
+        color: #b32f2d;
+    }
+
+    .xBtn:hover {
+        font-weight: 900;
+        cursor: pointer;
+        transition: all 0.5s ease-in-out;
+    }
+</style>
+<form method="post">
+    <input name="userId" value="@Model." hidden />
+    <div class="container backgroundWhite">
+        @* PopUp notification for user to update their profile *@
+        @*<div class="col-12 update_profile_notifi" id="updateProfile">
+            @if (Model.applicationUserObj.Education == "" ||
+                   Model.applicationUserObj.Education == null ||
+                   Model.applicationUserObj.Gender == "" ||
+                   Model.applicationUserObj.Gender == null ||
+                   Model.applicationUserObj.Income == "" ||
+                   Model.applicationUserObj.Income == null ||
+                   Model.applicationUserObj.Military == "" ||
+                   Model.applicationUserObj.Military == null ||
+                   Model.applicationUserObj.Race == "" ||
+                   Model.applicationUserObj.Race == null ||
+                   Model.applicationUserObj.Residence == "" ||
+                   Model.applicationUserObj.Residence == null)
+            {
+                <p class="text-center py-2">Your profile information is incomplete, please click 
+            <a href="/Identity/Account/Manage/Index">here</a> to update your profile<span class="xBtn ml-5 pl-5" id="xBtn">&times;</span></p>
+            }
+        </div>*@
+        @* End PopUp *@
+        <div class="row">
+            <div class="col-12 border">
+                <div class="container">
+                    <h2 class="text-primary" style="text-align: center;">Entrepreneur's Profile for @Model.applicationUserObj.FullName</h2>
+                    <p><b>Email:</b>    @Model.applicationUserObj.UserName</p>
+                    <p><b>Phone Number:</b> @Model.applicationUserObj.PhoneNumber</p>
+                    <p><b>Mailing Address:</b>    @Model.applicationUserObj.Address</p>
+                    <p><b>City:</b>    @Model.applicationUserObj.City</p>
+                    <p><b>County:</b>    @Model.applicationUserObj.County</p>
+                    <p><b>State:</b>    UT</p>
+                    <p><b>Zip:</b>    @Model.applicationUserObj.Zip</p>
+                    <p><b></b> <span id='date-time' hidden></span></p>
+                </div>
+                <div class="row">
+                    <div class="col-6">
+                        <h2 class="text-primary">@Model.applicationUserObj.FullName's applications</h2>
+                    </div>
+                    @* If user hasn't update his/her profile "Create New" button will be hidden until he/she update profile *@
+                    @*@if (Model.applicationUserObj.Education != "" &&
+                        Model.applicationUserObj.Education != null &&
+                        Model.applicationUserObj.Gender != "" &&
+                        Model.applicationUserObj.Gender != null &&
+                        Model.applicationUserObj.Income != "" &&
+                        Model.applicationUserObj.Income != null &&
+                        Model.applicationUserObj.Military != "" &&
+                        Model.applicationUserObj.Military != null &&
+                        Model.applicationUserObj.Race != "" &&
+                        Model.applicationUserObj.Race != null &&
+                        Model.applicationUserObj.Residence != "" &&
+                        Model.applicationUserObj.Residence != null)
+                    {*@
+                        <div class="col-6 text-right">
+                            <a asp-page="Upsert" class="btn btn-primary" id="new_application"><i class="fas fa-plus"></i>&nbsp;Create New Application</a>
+                        </div>
+                    @*}*@
+                    @* End validation for "Create New" button *@
+                </div>
+                <br /><br />
+                <table id="DT_load" class="table table-striped table-bordered">
+                    <thead>
+                        <tr>
+                            <th>
+                                Business name
+                            </th>
+                            <th>
+                                Status
+                            </th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                </table>
+
+            </div>
+        </div>
+    </div>
+</form>
+
+@section Scripts{
+    <script src="~/js/applicationHomePage.js"></script>
+    @* Click event to close PopUp (x) *@
+    <script>
+        document.getElementById("xBtn").addEventListener("click", () => {
+            document.getElementById("updateProfile").style.display = 'none';
+        })       
+    </script>
+}
