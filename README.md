@@ -1,5 +1,5 @@
 # WildcatMicroFundWebsite
-
+Senior Capstone project, Summer 2021
 # Purpose of website
 Weber State University has a Microfund that can grant money to help entrepreneurs in need.
 This website has been developed for the Microfund by various people to help lessen the burden
