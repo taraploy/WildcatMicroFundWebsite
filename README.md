@@ -7,7 +7,7 @@ of the Admin for the Microfund.  They were originally using an Excel Spreadsheet
 of the entrepreneurs, funds given out, etc. and it was a mess.  With the website we have tried
 to streamline this process so the Admin doesn't have to manually enter anything.
 
-# se of website
+# Use of website
 This website is strictly for use by the Wildcat Microfund of Weber State University, and anyone
 involved in the process.  Entrepreneurs will have the ability to apply for grants through this 
 website as long as they meet the criteria required by Wildcat Microfund.
